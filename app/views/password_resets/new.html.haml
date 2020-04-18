@@ -1,0 +1,27 @@
+- provide(:title, 'Forgot password')
+.container
+- if flash[:notice]
+  .alert.alert-danger.alert-dismissible.fade.show{:role=>"alert"}
+    = flash[:notice]
+- if flash[:success]
+  .alert.alert-success.alert-dismissible.fade.show{:role=>"alert"}
+    = flash[:success]
+
+.form-gap.centered
+.container
+  .row
+    .login-form
+      = form_for(:password_reset, url: password_resets_path) do |f|
+        %h3.text-center Forgot your password
+        -# <h3><i class="fa fa-lock fa-4x"></i></h3>
+        .text-center
+          %h3
+            .i.fa.fa-lock.fa-2x
+          %p
+            Enter the email address associated with the account and click Reset password button.
+          %br
+        .password-recovery-input-container
+          %i.fa.fa-envelope.password-recovery-icon.fa-2x
+          = f.email_field :email, placeholder: 'Email Address',  class: "password-recovery-input-field"        
+        = f.submit "Reset password", class: "password-recovery-btn"
+      

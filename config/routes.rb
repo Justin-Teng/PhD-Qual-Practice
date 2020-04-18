@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   # Modified for password reset functionality
   resources :password_resets,     only: [:new, :create, :edit, :update]
   #get 'password_resets/new'
   #get 'password_resets/edit'
-
+  
   resources :admin
   get '/admin', to:  'admin#index'
   get '/admin_questions', to: 'admin#admin_questions' 
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
   get '/users', to: 'users#show'
+  delete "/users/sign_out" => "devise/sessions#destroy"
 
   resources :home
   root :to => redirect('/home')

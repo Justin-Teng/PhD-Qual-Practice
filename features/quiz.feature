@@ -15,6 +15,7 @@ And I am on the home page
 When I follow "Start Quiz"
 Then I should be on Quiz Category page
 When I choose radio button "All"
+When I fill in "timervalue" with "1"
 And I press "Start Quiz"
 When I choose answer "1" on question "1"
 And I click "Next"

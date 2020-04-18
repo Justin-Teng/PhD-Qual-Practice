@@ -20,6 +20,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Used for dotenv file
+gem 'dotenv-rails'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -36,6 +39,10 @@ gem 'browser', '2.0.3'
 
 gem "will_paginate", "~> 3.0.4" 
 
+# for authentication
+gem 'devise'
+gem 'omniauth-facebook', "6.0.0"
+gem 'omniauth-google-oauth2', "0.8.0"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -78,6 +85,7 @@ end
 group :test do
   gem 'simplecov', :require => false
   gem 'cucumber-rails', :require => false
+  gem 'rubocop-rspec', require: false
   gem 'cucumber-rails-training-wheels'
   gem 'factory_bot_rails'
 end

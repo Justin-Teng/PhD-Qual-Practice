@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def authorize
-    unless User.find_by(id: session[:user_id])
+    unless user_signed_in?
       flash[:notice] = "You need to login to see this page"
       redirect_to login_url
     end

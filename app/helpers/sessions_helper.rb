@@ -5,9 +5,9 @@ module SessionsHelper
         session[:name] = user.name
     end
     
-    def current_user
-        @current_user ||= User.find_by(id: session[:user_id])
-    end
+    # def current_user
+    #     @current_user ||= User.find_by(id: session[:user_id])
+    # end
     
     def logged_in?
         !current_user.nil?
@@ -18,9 +18,11 @@ module SessionsHelper
     end
     
     def log_out
+        sign_out current_user
         session.delete(:user_id)
-	session.delete(:email)
-	session.delete(:name)
+	      session.delete(:email)
+        session.delete(:name)
+        session.delete("devise.facebook_data")
         @current_user = nil
     end
     
@@ -33,7 +35,7 @@ module SessionsHelper
     end
     
     def logged_in_admin
-      unless logged_in? && User.find_by(id: session[:user_id]).reviewStatus == "Approved"
+      unless logged_in? && current_user.reviewStatus == "Approved"
         flash[:session] = "Only Admins are allowed to see this page."
         redirect_to root_url
       end

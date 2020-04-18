@@ -31,7 +31,10 @@
       .navbar-collapse.collapse.w-100.order-3.dual-collapse2
         %ul.navbar-nav.ml-auto
           %li.nav-item
-            %a.nav-link{:href => ""} Login
+            - if user_signed_in?
+                %a.nav-link{:href => "#"} current_user
+            -else
+                %a.nav-link{:href => ""} Login
           %li.nav-item
             %a.nav-link{:href => ""} Register
     %br/

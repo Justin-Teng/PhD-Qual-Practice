@@ -283,6 +283,15 @@ When /^I check the checkbox "([^"]*)"$/ do |cb|
   #find("categories_Networks", :visible => false).click
 end
 
+When /^I click on bookmark$/ do
+  find(:xpath, "(//input[@type='checkbox'])[1]").click
+end
+
+Then /^I should get marked questions "([^"]*)"$/ do |question|
+  var="Q.#{question}"
+  find(:visible, 'button', text: var).click
+end
+
 When("I Submit quiz") do
   find(:css, "#submitQuiz").click
   find("button[class='btn btn-info']").click

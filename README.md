@@ -36,3 +36,32 @@ heroku open
 ```
 heroku run rake db:reset
 ```
+
+## Facebook and Google authentication.
+### Create token
+For these features to work you have to create your own client_id and secret.
+* Follow https://developers.google.com/identity/protocols/oauth2 for google.
+* Follow https://developers.facebook.com/docs/facebook-login/access-tokens/ for facebook
+### Setting up environment variable.
+Set below environement variables using export command( in case of linux),
+export FB_APP_ID=***
+export FB_APP_SECRET=***
+export GOOGLE_APP_ID=***
+export GOOGLE_APP_SECRET=***
+
+
+## Forgot password email sender 
+### Setting Up a gmail account
+Go to the https://myaccount.google.com/lesssecureapps url from the account you want to use and turn on the toggle switch so it says Allow less secure apps: ON 
+
+### Setting Up environment variable
+Either use 
+    ```
+    export GMAIL_USERNAME=***
+    export GMAIL_PASSWORD=***
+    ```
+Or, create e ```.env``` file on the root and set the  following variables accordingly
+    ```
+    GMAIL_USERNAME=*** 
+    GMAIL_PASSWORD=***
+    ```

@@ -7,6 +7,7 @@ var totalQuizScore = 0;
 var perQuesWeight = 1;
 var quizSummaryGenerated = false;
 var isQuizComplete = false;
+var interval = 0;
 // this will called when document is ready
 
 
@@ -119,20 +120,27 @@ function bindFormEvents() {
         }
     });
 }
+
+function endQuiz(){
+  //disable all radio buttons
+  $("input[type='radio']").prop("disabled", true);
+  //create right question array
+  //create wrong response array
+  //update last question or first question
+  checkForCorrectAnswer($(".questionItem").eq(currentIndex));
+  findRightWrongQs();
+  //calculcate score
+  totalQuizScore = perQuesWeight * rightQs.length;
+  generateSumamryView();
+  isQuizComplete = true;
+
+}
+
 function bindEvents() {
     $("#submitQuiz").on("click", function () {
         if (confirm("This will submit the quiz. You won't be able to modify your answer choice. Click Ok to continue.")) {
-            //disable all radio buttons
-            $("input[type='radio']").prop("disabled", true);
-            //create right question array
-            //create wrong response array
-            //update last question or first question
-            checkForCorrectAnswer($(".questionItem").eq(currentIndex));
-            findRightWrongQs();
-            //calculcate score
-            totalQuizScore = perQuesWeight * rightQs.length;
-            generateSumamryView();
-            isQuizComplete = true;
+	  clearInterval(interval);
+          endQuiz();
         }
     });
 }
@@ -345,4 +353,26 @@ function getPrevious() {
         $(".questionItem").eq(currentIndex).removeClass("hide");
         initializeIndex();
     }
+}
+
+// duration: in seconds
+function startTimer(duration, display) {
+    var timer = duration, hours, minutes, seconds;
+    interval = setInterval(function () {
+        hours = parseInt(timer/3600,10)
+        minutes = parseInt((timer%3600)/60,10)
+        seconds = parseInt(timer % 60, 10)
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            alert('Time is up');
+            clearInterval(interval);
+            endQuiz();
+        }
+    }, 1000);
 }

@@ -10,13 +10,13 @@ class CategoriesController < ApplicationController
     def index
         #@questions = QuestionBank.where(creator: session[:email])
         @all_categories = CategoryBank.all
-	@user = User.all
+	    @user = User.all
 	#redirect_to categories_path
     end
     
     def create
 	@all_category = CategoryBank.create!(category_params)
-        @all_category.update(creator: session[:email])
+        @all_category.update(creator: current_user.email)
         @all_category.update(reviewStatus: "Pending")
 	redirect_to categories_path
     end

@@ -18,3 +18,10 @@
 /log/*
 !/log/.keep
 /tmp
+coverage/.last_run.json
+coverage/.resultset.json
+.byebug_history
+coverage/.last_run.json
+
+#environment variable to hide passwords
+.env 

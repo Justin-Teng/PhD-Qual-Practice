@@ -1,11 +1,21 @@
 .container
   .row
+  
+    .col-md-1#sideBar
+      %span.h--serif Marked Questions:
+      - @questions.each_with_index do |ques,index|
+        .bookMarkItem{:class=>"#{'hide' if !ques.bookmark}","data-index"=>"#{index}"}
+          %button.btn.marker{:onclick => "toQuestion(#{index})", :type => "button", :padding => 0, :margin => 0, :border => "none", :backgroud => "none"} Q.#{index+1}
     .col-md-12#quizContainer
       %article.jumbotron.mx-auto
         - @questions.each_with_index do |ques,index|
           .questionItem{:class=>"#{'hide' if index > 0}","data-answer" => "#{ques.answer}","data-index"=>"#{index}"}
             .row
-              %span.h--serif Category: #{ques.category} | Question #{index+1} of #{@questions.count}| Card ID: #{ques.id}
+              %span.h--serif Category: #{ques.category} | Question #{index+1} of #{@questions.count}| Card ID: #{ques.id} | BookMark: #{ques.bookmark}
+              = check_box_tag "BookMark[#{ques.id}]", ques.bookmark, ques.bookmark,
+              { disabled: false,
+               onclick: "setBookmark()",
+               id: "bookmark_#{ques.id}"}
             .row
             
               - if /.(jpeg|jpg|gif|png)$/.match(ques.question)
@@ -62,6 +72,9 @@
           .col-xs-4
             .next
               %button.btn.next{:onclick => "getNext()", :type => "button"} Next
+        .row 
+          .col-xs-12.mx-auto
+            = link_to "Quit", selcat_path, class: "btn btn-lg btn-info" 
       .row
         .col-xs-12.mx-auto
           %button.btn.btn-info#submitQuiz.hide{:type => "button",:disabled=>"disabled"} Submit

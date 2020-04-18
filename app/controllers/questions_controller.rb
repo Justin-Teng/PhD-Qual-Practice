@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
     end
     
     def index
-        @user_questions = QuestionBank.where(creator: session[:email])
+        @user_questions = QuestionBank.where(creator: current_user.email)
         @categories_all = CategoryBank.all
     end
 
@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
     def create
         @categories_all = CategoryBank.all
 	    @question = QuestionBank.create!(question_params)
-        @question.update(creator: session[:email])
+        @question.update(creator: current_user.email)
         @question.update(reviewStatus: "Pending")
 
         if params[:imagequestion].present?

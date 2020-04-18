@@ -66,3 +66,60 @@
 .size-lg{
     font-size:38px;
 }
+
+span#time{
+  background-color: yellow;
+}
+
+/* added by Farabi for form gaps  */
+.form-gap{
+    padding-top: 70px;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.password-recovery-input-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+/* Style the form icons */
+.password-recovery-icon {
+padding: 10px;
+background: dodgerblue;
+color: white;
+min-width: 50px;
+text-align: center;
+}
+
+/* Style the input fields */
+.password-recovery-input-field {
+width: 100%;
+padding: 10px;
+outline: none;
+}
+
+.password-recovery-input-field:focus {
+border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.password-recovery-btn {
+background-color: dodgerblue;
+color: white;
+padding: 15px 20px;
+border: none;
+cursor: pointer;
+width: 100%;
+opacity: 0.9;
+}
+
+.password-recovery-btn:hover {
+opacity: 1;
+}

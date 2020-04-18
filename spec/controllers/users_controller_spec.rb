@@ -157,7 +157,7 @@ RSpec.describe UsersController, type: :controller do
 #  end
 #
   it "should create new users without updated_at value, ensure that they exist even after old users are deleted " do
-    post :create, :user => { :name => "ABC", :email => "abc@tamu.edu", :password=> '1234', :password_confirmation=> '1234' }
+    post :create, :user => { :name => "ABC", :email => "abc@tamu.edu", :password=> '123456', :password_confirmation=> '123456' }
    
     # all the created users exist
     expect(User.where(:name => "ABC")).to exist
@@ -165,7 +165,7 @@ RSpec.describe UsersController, type: :controller do
     #delete old users rspec test
     expect(User.delete_old_users).to eql(0)
  
-    post :create, :user => { :name => "ADMIN", :email => "admin@tamu.edu", :password=> '1234', :password_confirmation=> '1234' }
+    post :create, :user => { :name => "ADMIN", :email => "admin@tamu.edu", :password=> '123456', :password_confirmation=> '123456' }
    
     # all the created users exist
     expect(User.where(:name => "ADMIN")).to exist
@@ -175,14 +175,15 @@ RSpec.describe UsersController, type: :controller do
   end
 
   it "should check that digest action works properly " do
-    post :create, :user => { :name => "ABC", :email => "abc@tamu.edu", :password=> '1234', :password_confirmation=> '1234' }
-    expect(User.digest("1234")).to_not eql(nil)
+    post :create, :user => { :name => "ABC", :email => "abc@tamu.edu", :password=> '123456', :password_confirmation=> '123456' }
+    expect(User.digest("123456")).to_not eql(nil)
   end
   
     describe 'Do not delete users who recently logged in' do
-      let!(:user1) { FactoryBot.create(:user, name: 'abc', email: 'abc@tamu.edu', password: '1234', password_digest: '1234',
+      let!(:user1) { FactoryBot.create(:user, name: 'abc', email: 'abc@tamu.edu', password: '123456', password_digest: '123456',
 reset_digest: '265599eadb0d4216a4f5a9d4ac77b091', updated_at: DateTime.new(2016,03,26,12,00,00,"-07:00"), is_admin: false)}
       it 'should check that user exists' do
+        allow(controller).to receive(:current_user).and_return(user1)
         expect(User.where(:name => "abc")).to exist
         get :edit, {id: user1.id}
         #update the reset_token --which implies that the user logged in recently
@@ -193,9 +194,10 @@ reset_digest: '265599eadb0d4216a4f5a9d4ac77b091', updated_at: DateTime.new(2016,
     end
 
     describe 'Delete User who has not logged in for more than 2 years' do
-      let!(:user1) { FactoryBot.create(:user, name: 'abc', email: 'abc@tamu.edu', password: '1234', password_digest: '1234',
+      let!(:user1) { FactoryBot.create(:user, name: 'abc', email: 'abc@tamu.edu', password: '123456', password_digest: '123456',
 reset_digest: '265599eadb0d4216a4f5a9d4ac77b091', updated_at: DateTime.new(2016,03,26,12,00,00,"-07:00"), is_admin: false)}
       it 'should check that user exists' do
+        allow(controller).to receive(:current_user).and_return(user1)
         expect(User.where(:name => "abc")).to exist
         get :edit, {id: user1.id}
         #delete old users rspec test
